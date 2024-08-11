@@ -1,7 +1,7 @@
 plan:	
 	@echo "Init and plan Terraform deployment"
 	cd infra/; terraform init -reconfigure; terraform plan;
-apply:	
+apply: plan
 	@echo "Apply Terraform deployment"
 	cd infra/; terraform apply --auto-approve;
 destroy:
