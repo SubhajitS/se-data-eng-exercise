@@ -1,4 +1,4 @@
-resource "google_storage_bucket" "se-data-storage-bucket" {
+resource "google_storage_bucket" "se_data_storage_bucket" {
   name                        = var.storage_bucket.name
   location                    = var.storage_bucket.location
   storage_class               = var.storage_bucket.storage_class

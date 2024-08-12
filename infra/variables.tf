@@ -6,6 +6,10 @@ variable "location" {
   type    = string
   default = "ASIA-SOUTH1"
 }
+variable "region" {
+  type    = string
+  default = "asia-south1"
+}
 variable "storage_bucket" {
   type = object({
     name                        = string
@@ -204,5 +208,46 @@ variable "datatable" {
     }
   ]
   EOF
+  }
+}
+
+variable "function" {
+  type = object({
+    name                                = string
+    description                         = string
+    runtime                             = string
+    entry_point                         = string
+    available_memory                    = number
+    max_instance_count                  = number
+    timeout_seconds                     = number
+    trigger_http                        = bool
+    artifact_type                       = string
+    artifact_name                       = string
+    source_dir                          = string
+    output_path                         = string
+    storage_name                        = string
+    storage_class                       = string
+    storage_public_access_prevention    = string
+    storage_force_destroy               = bool
+    storage_uniform_bucket_level_access = bool
+  })
+  default = {
+    name                                = "se-data-loader-subhajit"
+    description                         = "a new function"
+    runtime                             = "python39"
+    entry_point                         = "hello_http"
+    available_memory                    = 128
+    max_instance_count                  = 1
+    timeout_seconds                     = 60
+    trigger_http                        = true
+    artifact_type                       = "zip"
+    artifact_name                       = "function-source.zip"
+    source_dir                          = "../src/function"
+    output_path                         = "/tmp/function-source.zip"
+    storage_name                        = "se-data-function-subhajit"
+    storage_class                       = "STANDARD"
+    storage_public_access_prevention    = "enforced"
+    storage_force_destroy               = true
+    storage_uniform_bucket_level_access = true
   }
 }
