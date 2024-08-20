@@ -22,7 +22,7 @@ module "storage_bucket" {
     force_destroy               = var.storage_bucket.force_destroy
   }
 }
-
+//Add ee-india-se-data service account to data editor role
 module "bigquery_datatable" {
   source = "./modules/datatable"
   dataset = {
@@ -31,6 +31,7 @@ module "bigquery_datatable" {
     description                = var.dataset.description
     delete_contents_on_destroy = var.dataset.delete_contents_on_destroy
     access                     = var.dataset.access
+    data_editor_service_account = var.dataset.data_editor_service_account
   }
   datatable = {
     name                = var.datatable.name
@@ -50,7 +51,8 @@ module "function" {
     available_memory   = var.function.available_memory
     max_instance_count = var.function.max_instance_count
     timeout_seconds    = var.function.timeout_seconds
-    trigger_http       = var.function.trigger_http
+    event_type         = var.function.event_type
+    event_source       = module.storage_bucket.storage_bucket_name
     deploy = {
       name        = var.function.artifact_name
       type        = var.function.artifact_type

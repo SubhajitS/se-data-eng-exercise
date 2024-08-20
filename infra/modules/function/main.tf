@@ -33,15 +33,9 @@ resource "google_cloudfunctions_function" "function" {
   available_memory_mb = var.function.available_memory
   source_archive_bucket = module.storage_bucket.storage_bucket_name
   source_archive_object = google_storage_bucket_object.object.name
-  trigger_http = var.function.trigger_http
   entry_point = var.function.entry_point
+  event_trigger {
+    event_type = var.function.event_type
+    resource = var.function.event_source
+  }
 }
-
-# resource "google_cloudfunctions_function_iam_member" "member" {
-#   depends_on = [ google_cloudfunctions_function.function ]
-#   project = google_cloudfunctions_function.function.project
-#   region = google_cloudfunctions_function.function.region
-#   cloud_function = google_cloudfunctions_function.function.name
-#   role     = "roles/cloudfunctions.invoker"
-#   member   = "allUsers"
-# }

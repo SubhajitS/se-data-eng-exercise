@@ -1,27 +1,30 @@
-
 import functions_framework
 
+from google.cloud import bigquery
 
-from markupsafe import escape
+@functions_framework.cloud_event
+def load_file(cloud_event):
+    data = cloud_event.data
+    print(data)
+    client = bigquery.Client()
 
-@functions_framework.http
-def hello_http(request):
-    """HTTP Cloud Function.
-    Args:
-        request (flask.Request): The request object.
-        <https://flask.palletsprojects.com/en/1.1.x/api/#incoming-request-data>
-    Returns:
-        The response text, or any set of values that can be turned into a
-        Response object using `make_response`
-        <https://flask.palletsprojects.com/en/1.1.x/api/#flask.make_response>.
-    """
-    request_json = request.get_json(silent=True)
-    request_args = request.args
+    table_id = "ee-india-se-data.movies_data_subhajit.movies_raw"
 
-    if request_json and "name" in request_json:
-        name = request_json["name"]
-    elif request_args and "name" in request_args:
-        name = request_args["name"]
-    else:
-        name = "World"
-    return f"Hello {escape(name)}!"
+    job_config = bigquery.LoadJobConfig(
+        allow_jagged_rows=True,
+        skip_leading_rows=1,        
+        source_format=bigquery.SourceFormat.CSV,
+    )
+    bucket = data["bucket"]
+    name = data["name"]
+    uri = f"gs://{bucket}/{name}"
+    print(uri)
+
+    load_job = client.load_table_from_uri(
+        uri, table_id, job_config=job_config
+    ) 
+
+    load_job.result()
+
+    destination_table = client.get_table(table_id)
+    print("Loaded {} rows.".format(destination_table.num_rows))

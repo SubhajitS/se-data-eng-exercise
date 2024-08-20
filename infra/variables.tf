@@ -33,6 +33,7 @@ variable "dataset" {
     description                = string
     delete_contents_on_destroy = bool
     access                     = map(string)
+    data_editor_service_account = string
   })
   default = {
     name                       = "movies_data_subhajit"
@@ -42,6 +43,7 @@ variable "dataset" {
       "role"  = "OWNER"
       "email" = "subhajit.saha@equalexperts.com"
     }
+    data_editor_service_account = "serviceAccount:ee-india-se-data@appspot.gserviceaccount.com"
   }
 }
 
@@ -220,7 +222,6 @@ variable "function" {
     available_memory                    = number
     max_instance_count                  = number
     timeout_seconds                     = number
-    trigger_http                        = bool
     artifact_type                       = string
     artifact_name                       = string
     source_dir                          = string
@@ -230,16 +231,16 @@ variable "function" {
     storage_public_access_prevention    = string
     storage_force_destroy               = bool
     storage_uniform_bucket_level_access = bool
+    event_type                          = string
   })
   default = {
     name                                = "se-data-loader-subhajit"
     description                         = "a new function"
     runtime                             = "python39"
-    entry_point                         = "hello_http"
+    entry_point                         = "load_file"
     available_memory                    = 128
     max_instance_count                  = 1
     timeout_seconds                     = 60
-    trigger_http                        = true
     artifact_type                       = "zip"
     artifact_name                       = "function-source.zip"
     source_dir                          = "../src/function"
@@ -249,5 +250,6 @@ variable "function" {
     storage_public_access_prevention    = "enforced"
     storage_force_destroy               = true
     storage_uniform_bucket_level_access = true
+    event_type                          = "google.storage.object.finalize"
   }
 }

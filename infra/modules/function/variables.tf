@@ -8,7 +8,8 @@ variable "function" {
     max_instance_count = number
     available_memory   = number
     timeout_seconds    = number
-    trigger_http       = bool
+    event_type         = string
+    event_source       = string
     deploy = object({
       type        = string
       name        = string

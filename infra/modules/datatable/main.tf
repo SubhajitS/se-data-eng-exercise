@@ -17,3 +17,12 @@ resource "google_bigquery_table" "se-data-raw-table" {
   deletion_protection = var.datatable.deletion_protection
   schema     = var.datatable.schema
 }
+
+resource "google_bigquery_dataset_iam_binding" "dataEditor" {
+  dataset_id = google_bigquery_dataset.se-data-dataset.dataset_id
+  role       = "roles/bigquery.dataEditor"
+
+  members = [
+    var.dataset.data_editor_service_account
+  ]
+}
