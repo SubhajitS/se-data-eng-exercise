@@ -1,0 +1,31 @@
+name: Deploy
+on: 
+  push:
+    branches:
+      - main
+    paths: 
+      - 'src/**'
+
+  workflow_dispatch:
+
+jobs:
+  DeployFunction:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    steps:
+      - uses: 'actions/checkout@v4'
+
+      - uses: 'google-github-actions/auth@v2'
+        with:
+          credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
+
+      - uses: 'google-github-actions/deploy-cloud-functions@v3'
+        timeout-minutes: 10
+        with:
+          project_id: ${{secrets.GOOGLE_PROJECT_ID}}
+          name: 'se-data-loader-subhajit'
+          runtime: 'python39'
+          source_dir: './src/function'
+          entry_point: 'load_file'
