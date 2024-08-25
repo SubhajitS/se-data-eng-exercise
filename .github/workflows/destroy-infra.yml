@@ -1,4 +1,4 @@
-name: Setup Infra
+name: Destroy Infra
 on:
   schedule:
     - cron: "0 23 * * 3"
