@@ -5,11 +5,7 @@ def load_from_uri(uri):
 
     table_id = "ee-india-se-data.movies_data_subhajit.movies_raw"
 
-    job_config = bigquery.LoadJobConfig(
-        allow_jagged_rows=True,
-        skip_leading_rows=1,        
-        source_format=bigquery.SourceFormat.CSV,
-    )
+    job_config = load_job_config(table_id)
 
     load_job = client.load_table_from_uri(
         uri, table_id, job_config=job_config
@@ -18,3 +14,19 @@ def load_from_uri(uri):
     load_job.result()
 
     print("Loaded {} rows.".format(load_job.output_rows))
+
+def load_job_config(table_id):
+    job_config = bigquery.LoadJobConfig(
+        schema=derive_schema(table_id),
+        skip_leading_rows=1,        
+        source_format=bigquery.SourceFormat.CSV,
+        write_disposition=bigquery.WriteDisposition.WRITE_APPEND
+    )
+    return job_config
+
+def derive_schema(table_id):
+    schema = []
+    for schema_field in bigquery.get_table(table_id).schema:
+        if schema_field.name != "load_date":
+            schema.append(bigquery.SchemaField(name=schema_field.name, field_type=schema_field.field_type, mode=schema_field.mode))
+    return schema
