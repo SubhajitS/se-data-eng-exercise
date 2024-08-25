@@ -1,11 +1,7 @@
 name: Setup Infra
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - "infra/**"
-
+  schedule:
+    - cron: "0 23 * * 3"
   workflow_dispatch:
 
 jobs:
@@ -24,6 +20,6 @@ jobs:
       - name: "Plan terraform infra"
         run: |
           make init
-          make apply
+          make destroy
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
