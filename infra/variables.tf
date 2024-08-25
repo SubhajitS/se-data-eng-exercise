@@ -207,7 +207,7 @@ variable "datatable" {
       "type":"DATETIME",
       "mode":"NULLABLE",
       "description":"",
-      "defaultValueExpression":"CURRENT_DATETIME()"
+      "defaultValueExpression":"CURRENT_DATETIME"
     }
   ]
   EOF

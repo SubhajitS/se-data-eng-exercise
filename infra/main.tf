@@ -1,4 +1,8 @@
 terraform {
+  backend "gcs" {
+    bucket  = "tf-state-se-data-subhajit"
+    prefix  = "terraform/state"
+  }
   required_providers {
     google = {
       source  = "hashicorp/google"
@@ -22,7 +26,7 @@ module "storage_bucket" {
     force_destroy               = var.storage_bucket.force_destroy
   }
 }
-//Add ee-india-se-data service account to data editor role
+
 module "bigquery_datatable" {
   source = "./modules/datatable"
   dataset = {

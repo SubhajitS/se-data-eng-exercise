@@ -1,0 +1,28 @@
+name: Setup Infra
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "infra/**"
+
+  workflow_dispatch:
+
+jobs:
+  Terraform:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: "read"
+      id-token: "write"
+    steps:
+      - uses: "actions/checkout@v4"
+
+      - uses: "google-github-actions/auth@v2"
+        with:
+          credentials_json: "${{ secrets.GOOGLE_CREDENTIALS }}"
+
+      - name: "Plan terraform infra"
+        run: |
+          make plan
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
