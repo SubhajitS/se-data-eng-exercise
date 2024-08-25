@@ -34,8 +34,6 @@ module "bigquery_datatable" {
     location                   = var.location
     description                = var.dataset.description
     delete_contents_on_destroy = var.dataset.delete_contents_on_destroy
-    access                     = var.dataset.access
-    data_editor_service_account = var.dataset.data_editor_service_account
   }
   datatable = {
     name                = var.datatable.name

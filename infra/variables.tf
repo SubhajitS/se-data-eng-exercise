@@ -32,18 +32,11 @@ variable "dataset" {
     name                       = string
     description                = string
     delete_contents_on_destroy = bool
-    access                     = map(string)
-    data_editor_service_account = string
   })
   default = {
     name                       = "movies_data_subhajit"
     description                = "This is a test dataset"
     delete_contents_on_destroy = true
-    access = {
-      "role"  = "OWNER"
-      "email" = "subhajit.saha@equalexperts.com"
-    }
-    data_editor_service_account = "serviceAccount:ee-india-se-data@appspot.gserviceaccount.com"
   }
 }
 
