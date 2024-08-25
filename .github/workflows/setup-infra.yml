@@ -23,6 +23,7 @@ jobs:
 
       - name: "Plan terraform infra"
         run: |
+          make init
           make plan
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}

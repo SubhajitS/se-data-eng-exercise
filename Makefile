@@ -1,4 +1,6 @@
-plan:	
+init:
+	cd infra/; terraform init;
+plan:
 	@echo "Init and plan Terraform deployment"
 	cd infra/; terraform init -reconfigure; terraform plan;
 apply: plan
