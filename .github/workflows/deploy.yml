@@ -29,3 +29,4 @@ jobs:
           runtime: 'python39'
           source_dir: './src/function'
           entry_point: 'load_file'
+          service_account: se-data-india-service-account@ee-india-se-data.iam.gserviceaccount.com
