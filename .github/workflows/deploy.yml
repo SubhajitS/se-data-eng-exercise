@@ -19,7 +19,7 @@ jobs:
 
       - uses: 'google-github-actions/auth@v2'
         with:
-          credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
+          credentials_json: '${{ secrets.GOOGLE_CREDENTIALS_RUNTIME }}'
 
       - uses: 'google-github-actions/deploy-cloud-functions@v3'
         timeout-minutes: 10
@@ -29,4 +29,4 @@ jobs:
           runtime: 'python39'
           source_dir: './src/function'
           entry_point: 'load_file'
-          service_account_email: se-data-india-service-account@ee-india-se-data.iam.gserviceaccount.com
+          service_account: ee-india-se-data@appspot.gserviceaccount.com
