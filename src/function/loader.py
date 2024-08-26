@@ -1,9 +1,7 @@
 from google.cloud import bigquery
 
-def load_from_uri(uri):
+def load_from_uri(uri, table_id):
     client = bigquery.Client()
-
-    table_id = "ee-india-se-data.movies_data_subhajit.movies_raw"
 
     job_config = load_job_config(client, table_id)
 

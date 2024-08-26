@@ -12,7 +12,11 @@ def load_file(cloud_event):
         name = data["name"]
         uri = f"gs://{bucket}/{name}"
         print(uri)
-
-        load_from_uri(uri)
+        table_id = "ee-india-se-data.movies_data_subhajit."
+        if name.startswith("movies"):
+            table_id += "movies_raw"
+        elif name.startswith("ratings"):
+            table_id += "ratings_raw"
+        load_from_uri(uri, table_id)
     else:
         print("Invalid file format")
