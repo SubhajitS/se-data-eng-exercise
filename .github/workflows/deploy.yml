@@ -21,12 +21,14 @@ jobs:
         with:
           credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
 
-      - uses: 'google-github-actions/deploy-cloud-functions@v3'
-        timeout-minutes: 10
-        with:
-          project_id: ${{secrets.GOOGLE_PROJECT_ID}}
-          name: 'se-data-loader-subhajit'
-          runtime: 'python39'
-          source_dir: './src/function'
-          entry_point: 'load_file'
-          service_account: ee-india-se-data@appspot.gserviceaccount.com
+      - name: Deploy cloud function
+        run: gcloud functions deploy se-data-loader-subhajit --region=asia-south1 --runtime=python39 --source=./src/function --entry-point=load_file --project=${{secrets.GOOGLE_PROJECT_ID}}
+      # - uses: 'google-github-actions/deploy-cloud-functions@v3'
+      #   timeout-minutes: 10
+      #   with:
+      #     project_id: ${{secrets.GOOGLE_PROJECT_ID}}
+      #     name: 'se-data-loader-subhajit'
+      #     runtime: 'python39'
+      #     source_dir: './src/function'
+      #     entry_point: 'load_file'
+      #     service_account: se-data-india-service-account@ee-india-se-data.iam.gserviceaccount.com
