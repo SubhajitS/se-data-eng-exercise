@@ -15,18 +15,18 @@ def load_from_uri(uri):
 
     print("Loaded {} rows.".format(load_job.output_rows))
 
-def load_job_config(table_id):
+def load_job_config(client, table_id):
     job_config = bigquery.LoadJobConfig(
-        schema=derive_schema(table_id),
+        schema=derive_schema(client, table_id),
         skip_leading_rows=1,        
         source_format=bigquery.SourceFormat.CSV,
         write_disposition=bigquery.WriteDisposition.WRITE_APPEND
     )
     return job_config
 
-def derive_schema(table_id):
+def derive_schema(client, table_id):
     schema = []
-    for schema_field in bigquery.get_table(table_id).schema:
+    for schema_field in client.get_table(table_id).schema:
         if schema_field.name != "load_date":
             schema.append(bigquery.SchemaField(name=schema_field.name, field_type=schema_field.field_type, mode=schema_field.mode))
     return schema
