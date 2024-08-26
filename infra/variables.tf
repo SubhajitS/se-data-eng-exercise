@@ -204,6 +204,38 @@ variable "datatable" {
     }
   ]
   EOF
+  },
+  {
+    name                = "ratings_raw"
+    deletion_protection = false
+    schema              = <<EOF
+    [
+      {
+        "name":"userId",
+        "type":"STRING",
+        "mode":"NULLABLE",
+        "description":""
+      },
+      {
+        "name":"movieId",
+        "type":"STRING",
+        "mode":"NULLABLE",
+        "description":""
+      },
+      {
+        "name":"rating",
+        "type":"STRING",
+        "mode":"NULLABLE",
+        "description":""
+      },
+      {
+        "name":"timestamp",
+        "type":"STRING",
+        "mode":"NULLABLE",
+        "description":""
+      }
+    ]
+    EOF
   }]
 }
 
