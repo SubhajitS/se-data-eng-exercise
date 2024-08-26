@@ -41,12 +41,12 @@ variable "dataset" {
 }
 
 variable "datatable" {
-  type = object({
+  type = list(object({
     name                = string
     deletion_protection = bool
     schema              = string
-  })
-  default = {
+  }))
+  default = [{
     name                = "movies_raw"
     deletion_protection = false
     schema              = <<EOF
@@ -204,7 +204,7 @@ variable "datatable" {
     }
   ]
   EOF
-  }
+  }]
 }
 
 variable "function" {

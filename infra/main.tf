@@ -35,11 +35,7 @@ module "bigquery_datatable" {
     description                = var.dataset.description
     delete_contents_on_destroy = var.dataset.delete_contents_on_destroy
   }
-  datatable = {
-    name                = var.datatable.name
-    deletion_protection = var.datatable.deletion_protection
-    schema              = var.datatable.schema
-  }
+  datatable = var.datatable
 }
 
 module "function" {

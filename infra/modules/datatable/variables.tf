@@ -8,9 +8,9 @@ variable "dataset" {
 }
 
 variable "datatable" {
-  type = object({
+  type = list(object({
     name                = string
     deletion_protection = bool
     schema              = string
-  })
+  }))
 }
