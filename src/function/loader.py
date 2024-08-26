@@ -5,7 +5,7 @@ def load_from_uri(uri):
 
     table_id = "ee-india-se-data.movies_data_subhajit.movies_raw"
 
-    job_config = load_job_config(table_id)
+    job_config = load_job_config(client, table_id)
 
     load_job = client.load_table_from_uri(
         uri, table_id, job_config=job_config
