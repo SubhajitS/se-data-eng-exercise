@@ -2,4 +2,6 @@ infra/.terraform
 infra/.terraform.*
 infra/*.tfstate*
 env
+dbt-env
 **/__pycache__
+*.log
