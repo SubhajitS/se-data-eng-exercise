@@ -40,7 +40,7 @@ WITH CURATED_DATA AS (
         SAFE_CAST(vote_average as FLOAT64) AS vote_average,
         SAFE_CAST(vote_count as INT) AS vote_count,
         load_date
-    FROM `ee-india-se-data.movies_data_subhajit.movies_raw`
+    FROM {{ source('raw_source', 'movies_raw') }}
 )
 
 SELECT 

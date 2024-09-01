@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: raw_source
+    schema: movies_data_subhajit
+    description: "Raw datatables from BigQuery"
+    tables:
+      - name: movies_raw
