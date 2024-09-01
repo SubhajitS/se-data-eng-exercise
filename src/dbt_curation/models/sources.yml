@@ -6,3 +6,4 @@ sources:
     description: "Raw datatables from BigQuery"
     tables:
       - name: movies_raw
+      - name: ratings_raw
