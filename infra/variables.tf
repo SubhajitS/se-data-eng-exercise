@@ -233,6 +233,13 @@ variable "datatable" {
         "type":"STRING",
         "mode":"NULLABLE",
         "description":""
+      },
+      {
+        "name":"load_date",
+        "type":"DATETIME",
+        "mode":"NULLABLE",
+        "description":"",
+        "defaultValueExpression":"CURRENT_DATETIME"
       }
     ]
     EOF
