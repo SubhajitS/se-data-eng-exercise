@@ -17,7 +17,7 @@ WITH CURATED_DATA AS (
         CASE
             WHEN LOWER(overview)="no overview" THEN null
             WHEN LOWER(overview)="no overview found." THEN null
-            WHEN LOWER(overview)="No movie overview available." THEN null
+            WHEN LOWER(overview)="no movie overview available." THEN null
             WHEN TRIM(overview)="" THEN null
             ELSE overview
         END AS overview,
