@@ -1,0 +1,69 @@
+unit_tests:
+  - name: test_able_to_present_ratings_of_movies_by_rank
+    description: "Check if the model is able to cast all columns"
+    model: movie_ratings_pres
+    given:
+      - input: ref('movies_raw_to_curate')
+        format: sql
+        rows: |
+          select  1 as id, 
+                  "Movie 1" as title
+          UNION ALL
+          select  2 as id, 
+                  "Movie 2" as id
+          UNION ALL
+          select  3 as id, 
+                  "Movie 3" as id
+      - input: ref('ratings_raw_to_curate')
+        format: sql
+        rows: |
+          select  108123 as userId, 
+                  1 as movieId, 
+                  0.5 as rating,
+          UNION ALL
+          select  10902 as userId, 
+                  1 as movieId, 
+                  0.6 as rating,
+          UNION ALL
+          select  100245 as userId, 
+                  1 as movieId, 
+                  0.7 as rating,
+          UNION ALL
+          select  10902 as userId, 
+                  2 as movieId, 
+                  0.4 as rating,
+          UNION ALL
+          select  100245 as userId, 
+                  2 as movieId, 
+                  0.6 as rating,
+          UNION ALL
+          select  10902 as userId, 
+                  3 as movieId, 
+                  0.5 as rating,
+          UNION ALL
+          select  100245 as userId, 
+                  3 as movieId, 
+                  0.7 as rating,
+    expect:
+      rows:
+        - {
+          movieId: 1,
+          title: "Movie 1",
+          numberOfRatings: 3,
+          median: 0.6,
+          rank: 1
+        }
+        - {
+          movieId: 3,
+          title: "Movie 3",
+          numberOfRatings: 2,
+          median: 0.6,
+          rank: 1
+        }
+        - {
+          movieId: 2,
+          title: "Movie 2",
+          numberOfRatings: 2,
+          median: 0.5,
+          rank: 2
+        }
