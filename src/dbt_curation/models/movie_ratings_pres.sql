@@ -12,8 +12,8 @@ FROM
         movies.title,
         PERCENTILE_CONT(ratings.rating, 0.5) OVER(PARTITION BY ratings.movieId) AS median
     FROM 
-        {{ ref("ratings_raw_to_curate") }} ratings
+        {{ ref("ratings_curate") }} ratings
     INNER JOIN 
-        {{ ref("movies_raw_to_curate") }} movies ON ratings.movieId=movies.id
+        {{ ref("movies_curate") }} movies ON ratings.movieId=movies.id
     )
 GROUP BY movieId,title,median

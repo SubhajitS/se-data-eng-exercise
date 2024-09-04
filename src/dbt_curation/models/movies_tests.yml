@@ -1,7 +1,7 @@
 unit_tests:
   - name: test_able_to_cast_all_columns
     description: "Check if the model is able to cast all columns"
-    model: movies_raw_to_curate
+    model: movies_curate
     given:
       - input: source('raw_source', 'movies_raw')
         format: sql
@@ -62,7 +62,7 @@ unit_tests:
         }
   - name: test_able_to_cast_non_boolean_values_to_null
     description: "Check if the model is able to cast non boolean values to null"
-    model: movies_raw_to_curate
+    model: movies_curate
     given:
       - input: source('raw_source', 'movies_raw')
         format: sql
@@ -123,7 +123,7 @@ unit_tests:
         }
   - name: test_able_to_safe_cast_non_integer_to_null
     description: "Check if the model is able to safely cast non integer columns to null"
-    model: movies_raw_to_curate
+    model: movies_curate
     given:
       - input: source('raw_source', 'movies_raw')
         format: sql
@@ -184,7 +184,7 @@ unit_tests:
         }
   - name: test_able_to_safe_cast_non_decimal_to_null
     description: "Check if the model is able to safely cast non decimal columns to null"
-    model: movies_raw_to_curate
+    model: movies_curate
     given:
       - input: source('raw_source', 'movies_raw')
         format: sql
@@ -245,7 +245,7 @@ unit_tests:
         }
   - name: test_able_to_safe_cast_non_float_to_null
     description: "Check if the model is able to safely cast non float columns to null"
-    model: movies_raw_to_curate
+    model: movies_curate
     given:
       - input: source('raw_source', 'movies_raw')
         format: sql
@@ -306,7 +306,7 @@ unit_tests:
         }
   - name: test_able_to_clean_overview_if_no_overview_is_mentioned
     description: "Check if the model is able to safely clean overview column"
-    model: movies_raw_to_curate
+    model: movies_curate
     given:
       - input: source('raw_source', 'movies_raw')
         format: sql

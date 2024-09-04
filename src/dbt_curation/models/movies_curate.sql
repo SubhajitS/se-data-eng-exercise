@@ -1,4 +1,3 @@
-{{ config(alias='movies_curate') }}
 WITH CURATED_DATA AS (
     SELECT 
         CASE

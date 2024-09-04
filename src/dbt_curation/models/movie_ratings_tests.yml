@@ -3,18 +3,18 @@ unit_tests:
     description: "Check if the model is able to cast all columns"
     model: movie_ratings_pres
     given:
-      - input: ref('movies_raw_to_curate')
+      - input: ref('movies_curate')
         format: sql
         rows: |
           select  1 as id, 
                   "Movie 1" as title
           UNION ALL
           select  2 as id, 
-                  "Movie 2" as id
+                  "Movie 2" as title
           UNION ALL
           select  3 as id, 
-                  "Movie 3" as id
-      - input: ref('ratings_raw_to_curate')
+                  "Movie 3" as title
+      - input: ref('ratings_curate')
         format: sql
         rows: |
           select  108123 as userId, 
