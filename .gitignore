@@ -5,3 +5,6 @@ env
 dbt-env
 **/__pycache__
 *.log
+airflow-env
+**/standalone_admin_password.txt
+**/*.db
