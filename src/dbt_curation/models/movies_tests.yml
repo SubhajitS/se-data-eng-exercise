@@ -365,3 +365,64 @@ unit_tests:
           vote_count: 999,
           load_date: 2024-08-31 00:00:00-0,
         }
+  - name: test_able_to_identify_invalid_json
+    description: "Check if the model is able to safely clean non json fields"
+    model: movies_curate
+    given:
+      - input: source('raw_source', 'movies_raw')
+        format: sql
+        rows: |
+          select  "False" as adult, 
+                  'abc' as belongs_to_collection, 
+                  "999" as budget,
+                  '{"name": "Comedy"}' as genres,
+                  "https://www.google.com/" as homepage,
+                  "1" as id,
+                  "imdb_1" as imdb_id,
+                  "en" as original_language,
+                  "The Yes man" as original_title,
+                  "No movie overview available." as overview,
+                  "4.5" as popularity,
+                  "https://www.google.com" as poster_path,
+                  '{"name": "company"}' as production_companies,
+                  '{"name": "USA"}' as production_countries,
+                  "2024-08-08T00:00:00Z" as release_date,
+                  "0" as revenue,
+                  "2.4444" as runtime,
+                  '{"language": "en"}' as spoken_languages,
+                  "Hit" as status,
+                  "A yes man" as tagline,
+                  "A yes man" as title,
+                  "True" as video,
+                  "3.49999" as vote_average,
+                  "999" as vote_count,
+                  SAFE_CAST("2024-08-31T00:00:00Z" as DATETIME) as load_date
+    expect:
+      rows:
+        - {
+          adult: false,
+          belongs_to_collection: null,
+          budget: 999,
+          genres: { "name": "Comedy" },
+          homepage: "https://www.google.com",
+          id: 1,
+          imdb_id: "imdb_1",
+          original_language: "en",
+          original_title: "The Yes man",
+          overview: null,
+          popularity: 4.5,
+          poster_path: "https://www.google.com",
+          production_companies: { name: "company" },
+          production_countries: { name: "USA" },
+          release_date: 2024-08-08 00:00:00-0,
+          revenue: 0,
+          runtime: 2.4444,
+          spoken_languages: { language: "en" },
+          status: "Hit",
+          tagline: "A yes man",
+          title: "A yes man",
+          video: true,
+          vote_average: 3.49999,
+          vote_count: 999,
+          load_date: 2024-08-31 00:00:00-0,
+        }
