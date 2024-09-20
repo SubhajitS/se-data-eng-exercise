@@ -1,7 +1,6 @@
 WITH CURATED_DATA AS (
     SELECT 
-        CASE
-            WHEN adult='True' THEN true
+        SAFE_CAST(adult='True' THEN true
             WHEN adult='False' THEN false
             ELSE null
         END AS adult,
